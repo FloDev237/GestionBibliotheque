@@ -1,20 +1,22 @@
 package model;
 
 public class Livre {
-    private int id;
+    private int idLivre;
     private String titre;
     private String auteur;
     private int quantite;
     private String isbn;
-    public Livre(int id, String titre, String auteur, int quantite, String isbn) {
-        this.id = id;
+    private int anneePublication;
+    public Livre(int idLivre, String titre, String auteur, int quantite, String isbn, int anneePublication) {
+        this.idLivre = idLivre;
         this.titre = titre;
         this.auteur = auteur;
         this.quantite = quantite;
+        this.anneePublication = anneePublication;
         this.isbn = isbn;
     }
     public int getId(){
-        return id;
+        return idLivre;
     }
     public String getTitre(){
         return titre;
@@ -24,6 +26,9 @@ public class Livre {
     }
     public int getQuantite(){
         return quantite;
+    }
+    public int getAnneepublication(){
+        return anneepublication;
     }
     public String getIsbn(){
         return isbn;
@@ -44,10 +49,11 @@ public class Livre {
     @Override
     public String toString(){
         return "Livre{" +
-                "id=" + id +
+                "idLivre=" + idLivre +
                 ", titre='" + titre + '\'' +
                 ", auteur='" + auteur + '\'' +
                 ", quantite=" + quantite +
+                ", anneePublication=" + anneePublication +
                 ", isbn='" + isbn + '\'' +
                 '}';
     }

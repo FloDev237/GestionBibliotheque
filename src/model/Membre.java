@@ -9,15 +9,17 @@ public class Membre {
     private String email;
     private String adresse;
     private int tel;
+    private String dateInscription;
     private List<Livre> livresEmpruntes;
     
-    public Membre(int idMembre, string nom, String email, String adresse, int tel){
+    public Membre(int idMembre, string nom, String email, String adresse, int tel, String dateInscription){
         this.idMembre = idMembre;
         this.nom = nom;
         this.email = email;
         this.adresse = adresse;
         this.tel = tel;
-        this.livresEmpruntes = new Arraylist<>();
+        this.dateInscription = dateInscription;
+        this.livresEmpruntes = new ArrayList<>();
     }
     public int getIdMembre(){
         return idMembre;
@@ -34,6 +36,9 @@ public class Membre {
     }
     public int getTel(){
         return tel;
+    }
+    public String getDateInscription(){
+        return dateInscription;
     }
     public List<Livre> getLivresEmpruntes(){
         return livresEmpruntes;
@@ -61,6 +66,7 @@ public class Membre {
                 ", email='" + email + '\'' +
                 ", adresse='" + adresse + '\'' +
                 ", tel=" + tel +
+                ", dateInscription='" + dateInscription + '\'' +
                 '}';
     }
 }
