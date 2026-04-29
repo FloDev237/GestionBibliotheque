@@ -12,7 +12,7 @@ public class Membre {
     private String dateInscription;
     private List<Livre> livresEmpruntes;
     
-    public Membre(int idMembre, string nom, String email, String adresse, int tel, String dateInscription){
+    public Membre(int idMembre, String nom, String email, String adresse, int tel, String dateInscription){
         this.idMembre = idMembre;
         this.nom = nom;
         this.email = email;
