@@ -28,7 +28,7 @@ public class Livre {
         return quantite;
     }
     public int getAnneepublication(){
-        return anneepublication;
+        return anneePublication;
     }
     public String getIsbn(){
         return isbn;
