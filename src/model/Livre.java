@@ -1,79 +1,14 @@
 /*cd C:\Users\JERRY DON\GestionBibliotheque
 javac -d bin src\model\*.java src\service\*.java
 java -cp bin model.Livre */
-/*package model;
+package model;
 
-public class Livre {
-    private int idLivre;
-    private String titre;
-    private String auteur;
-    private int quantite;
-    private String isbn;
-    private int anneePublication;
-    public Livre(int idLivre, String titre, String auteur, int quantite, String isbn, int anneePublication) {
-        this.idLivre = idLivre;
-        this.titre = titre;
-        this.auteur = auteur;
-        this.quantite = quantite;
-        this.anneePublication = anneePublication;
-        this.isbn = isbn;
-    }
-    public int getId(){
-        return idLivre;
-    }
-    public String getTitre(){
-        return titre;
-    }
-    public String getAuteur(){
-        return auteur;
-    }
-    public int getQuantite(){
-        return quantite;
-    }
-    public int getAnneepublication(){
-        return anneePublication;
-    }
-    public String getIsbn(){
-        return isbn;
-    }
-    public boolean isDisponible(){
-        return quantite > 0;
-    }
-    public void emprunter(){
-        if (isDisponible()) {
-            quantite--;
-        } else {
-            System.out.println("Livre non disponible pour emprunt.");
-        }
-    }
-    public void retourner(){
-        quantite++;
-    }
-    @Override
-    public String toString(){
-        return "Livre{" +
-                "idLivre=" + idLivre +
-                ", titre='" + titre + '\'' +
-                ", auteur='" + auteur + '\'' +
-                ", quantite=" + quantite +
-                ", anneePublication=" + anneePublication +
-                ", isbn='" + isbn + '\'' +
-                '}';
-    }
-}
-*/
-// DONNEE DE TEST
-
-/*package model;
-// package service;
 import service.BibliothequeService;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Livre {
-    private static Scanner sc = new Scanner(System.in);
-    // ===================== ATTRIBUTS =====================
     private int idLivre;
     private String titre;
     private String auteur;
@@ -82,13 +17,8 @@ public class Livre {
     private boolean disponibilite;
     private String isbn;
 
-    // ===================== CONSTRUCTEURS =====================
-
-    public Livre() {
-    }
-
-    public Livre(int idLivre, String titre, String auteur, int annee,
-                 int quantite, boolean disponibilite, String isbn) {
+    //constructeur
+    public Livre(int idLivre, String titre, String auteur, int annee, int quantite, boolean disponibilite, String isbn) {
         this.idLivre = idLivre;
         this.titre = titre;
         this.auteur = auteur;
@@ -98,18 +28,16 @@ public class Livre {
         this.isbn = isbn;
     }
 
-    // ===================== GETTERS =====================
+    //getters
+    public int getId(){ return idLivre; }
+    public String getTitre(){ return titre; }
+    public String getAuteur(){ return auteur; }
+    public int getQuantite(){ return quantite; }
+    public int getAnnee(){ return annee; }
+    public String getIsbn(){ return isbn; }
+    public boolean getDisponibilite(){ return disponibilite; }
 
-    public int getIdLivre() { return idLivre; }
-    public String getTitre() { return titre; }
-    public String getAuteur() { return auteur; }
-    public int getAnnee() { return annee; }
-    public int getQuantite() { return quantite; }
-    public boolean getDisponibilite() { return disponibilite; }
-    public String getIsbn() { return isbn; }
-
-    // ===================== SETTERS =====================
-
+    //setters
     public void setIdLivre(int idLivre) { this.idLivre = idLivre; }
     public void setTitre(String titre) { this.titre = titre; }
     public void setAuteur(String nomAuteur) {  this.auteur = nomAuteur; }
@@ -117,9 +45,20 @@ public class Livre {
     public void setQuantite(int quantite) { this.quantite = quantite; }
     public void setDisponibilite(boolean disponibilite) { this.disponibilite = disponibilite; }
     public void setIsbn(String isbn) { this.isbn = isbn; }
-
-    // ===================== TOSTRING =====================
-
+    
+    public void emprunter(){
+        if (getDisponibilite()) {
+            quantite--;
+            disponibilite = false;
+        } else {
+            System.out.println("Livre non disponible pour emprunt.");
+        }
+    }
+    public void retourner(){
+        quantite++;
+        disponibilite = true;
+    }
+     
     @Override
     public String toString() {
         return "Livre{" +
@@ -132,45 +71,4 @@ public class Livre {
                 ", isbn='" + isbn + '\'' +
                 '}';
     }
-
-    //main
-    public static void main(String[] args) {
-        BibliothequeService bservice = new BibliothequeService();
-        int ch = 1;
-        while (ch == 1){
-            System.out.println("\t\tGestion des Livre");
-            System.out.println("1-Afficher tout leslivres diponibles");
-            System.out.println("2-modifier un livre");
-            System.out.println("3-supprimer un livre");
-            System.out.println("4-ajouter un livre");
-            System.out.println("5-Quitter");
-            int choix = sc.nextInt();
-            switch (choix) {
-                case 1:
-                    bservice.afficherTousLesLivres();
-                    break;
-                case 2:
-                    System.out.println("Entrer l\'identifiant du livre a modifier: ");
-                    int idlivrem = sc.nextInt();
-                    bservice.modifierLivre(idlivrem);
-                    break;
-                case 3:
-                    System.out.println("Entrer l\'identifiant du livre a supprimer: ");
-                    int idlivres = sc.nextInt();
-                    bservice.supprimerLivre(idlivres);
-                    break;
-                case 4:
-                    Livre livre;
-                    bservice.ajouterLivre();
-                    break;
-                case 5:
-                    ch = 0;
-                    break;
-                default:
-                    System.out.println("Choix incorrect, veuillez a faire un autre choix");
-                    break;
-            }      
-        }
-    }
-}*/
-
+}
