@@ -7,12 +7,14 @@ public class Livre {
     private int quantite;
     private String isbn;
     private int anneePublication;
-    public Livre(int idLivre, String titre, String auteur, int quantite, String isbn, int anneePublication) {
+    private boolean disponibilite;
+    public Livre(int idLivre, String titre, String auteur, int quantite, String isbn, int anneePublication, boolean disponibilite){ {
         this.idLivre = idLivre;
         this.titre = titre;
         this.auteur = auteur;
         this.quantite = quantite;
         this.anneePublication = anneePublication;
+        this.disponibilite = disponibilite;
         this.isbn = isbn;
     }
     public int getId(){
@@ -33,18 +35,20 @@ public class Livre {
     public String getIsbn(){
         return isbn;
     }
-    public boolean isDisponible(){
-        return quantite > 0;
+    public boolean getDisponibilite(){
+        return disponibilite;
     }
     public void emprunter(){
-        if (isDisponible()) {
+        if (getDisponibilite()) {
             quantite--;
+            disponibilite = false;
         } else {
             System.out.println("Livre non disponible pour emprunt.");
         }
     }
     public void retourner(){
         quantite++;
+        disponibilite = true;
     }
     @Override
     public String toString(){
