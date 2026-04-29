@@ -16,9 +16,11 @@ public class Livre {
     private int quantite;
     private boolean disponibilite;
     private String isbn;
+    private int idCategorie;
+
 
     //constructeur
-    public Livre(int idLivre, String titre, String auteur, int annee, int quantite, boolean disponibilite, String isbn) {
+    public Livre(int idLivre, String titre, String auteur, int annee, int quantite, boolean disponibilite, String isbn, int idCategorie) {
         this.idLivre = idLivre;
         this.titre = titre;
         this.auteur = auteur;
@@ -26,16 +28,18 @@ public class Livre {
         this.quantite = quantite;
         this.disponibilite = disponibilite;
         this.isbn = isbn;
+        this.idCategorie = idCategorie;
     }
 
     //getters
-    public int getId(){ return idLivre; }
+    public int getIdLivre(){ return idLivre; }
     public String getTitre(){ return titre; }
     public String getAuteur(){ return auteur; }
     public int getQuantite(){ return quantite; }
     public int getAnnee(){ return annee; }
     public String getIsbn(){ return isbn; }
     public boolean getDisponibilite(){ return disponibilite; }
+    public int getIdCategorie(){ return idCategorie; }
 
     //setters
     public void setIdLivre(int idLivre) { this.idLivre = idLivre; }
@@ -45,30 +49,17 @@ public class Livre {
     public void setQuantite(int quantite) { this.quantite = quantite; }
     public void setDisponibilite(boolean disponibilite) { this.disponibilite = disponibilite; }
     public void setIsbn(String isbn) { this.isbn = isbn; }
-    
-    public void emprunter(){
-        if (getDisponibilite()) {
-            quantite--;
-            disponibilite = false;
-        } else {
-            System.out.println("Livre non disponible pour emprunt.");
-        }
-    }
-    public void retourner(){
-        quantite++;
-        disponibilite = true;
-    }
-     
+    public void setIdCategorie(int idCategorie) { this.idCategorie = idCategorie; }
+ 
     @Override
     public String toString() {
-        return "Livre{" +
-                "idLivre=" + idLivre +
-                ", titre='" + titre + '\'' +
-                ", nomAuteur='" + auteur + '\'' +
-                ", anneePublication=" + annee +
-                ", nombreExemplaire=" + quantite +
-                ", disponibilite=" + disponibilite +
-                ", isbn='" + isbn + '\'' +
-                '}';
+        return "Livre{id=" + idLivre
+             + ", titre='" + titre + '\''
+             + ", auteur='" + auteur + '\''
+             + ", annee=" + annee
+             + ", quantite=" + quantite
+             + ", disponible=" + disponibilite
+             + ", isbn='" + isbn + '\''
+             + ", idCategorie=" + idCategorie + '}';
     }
 }

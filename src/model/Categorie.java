@@ -1,30 +1,39 @@
 package model;
 
-public class Categorie{
+public class Categorie {
     private int idCategorie;
     private String nom;
     private String description;
 
-    //constructeurs
-    public Categorie(){
+    // Constructeur vide
+    public Categorie() {
+        this.idCategorie = 0;
+        this.nom = "";
+        this.description = "";
+    }
+
+    // Constructeur paramétré
+    public Categorie(int idCategorie, String nom, String description) {
         this.idCategorie = idCategorie;
         this.nom = nom;
         this.description = description;
     }
 
-    public Categorie(int idCategorie, String nom, String description){
-        this.idCategorie = idCategorie;
-        this.nom = nom;
-        this.description = description;
+    // Getters
+    public int getIdCategorie() { return idCategorie; }
+    public String getNom() { return nom; }
+    public String getDescription() { return description; }
+
+    // Setters
+    public void setIdCategorie(int idCategorie) { this.idCategorie = idCategorie; }
+    public void setNom(String nom) { this.nom = nom; }
+    public void setDescription(String description) { this.description = description; }
+
+    @Override
+    public String toString() {
+        return "Categorie{id=" + idCategorie 
+             + ", nom='" + nom 
+             + "', description='" + description + "'}";
     }
-
-    //getters
-    public int getIdCategorie(){ return idCategorie; }
-    public String getNom(){ return nom; }
-    public String getDescription(){ return description; }
-
-    //setters
-    public void setIdCategorie(int idCat){ this.idCategorie = idCat; }
-    public void setNom(String name){ this.nom = name; }
-    public void setDescription (String descript){ this.description = descript; }
 }
+

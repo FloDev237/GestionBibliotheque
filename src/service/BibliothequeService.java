@@ -8,8 +8,16 @@ import java.util.List;
 public class BibliothequeService{
 
     Scanner sc = new Scanner(System.in);
-    // private List<Livre> livres;
     private List<Livre> livres = new ArrayList<>();
+    private CategorieService categorieService;
+
+    // Constructeur
+    public BibliothequeService(CategorieService categorieService) {
+        this.categorieService = categorieService;
+    }
+
+    //getters 
+    public List<Livre> getLivres() { return livres; }
 
     //afficher tout les livres
     public void afficherTousLesLivres() {
@@ -27,29 +35,20 @@ public class BibliothequeService{
             System.out.println("Quantite: " + l.getQuantite());
             System.out.println("Disponible : " + (l.getDisponibilite() ? "Oui" : "Non"));
             System.out.println("ISBN       : " + l.getIsbn());
+            System.out.println("Categorie  : " + categorieService.getNomCategorie(l.getIdCategorie()));
         }
         System.out.println("==========================================");
     }
 
     //ajouter un livre
     public void ajouterLivre() {
-        int idLivre;
-        while(true){
-            boolean existe = false;
-            System.out.print("Identifiant : ");
-            idLivre = sc.nextInt();
-            if (!idExiste(idLivre)) {
-                break;
-            }
-            System.out.println("Identifiant non disponible, car deja utiliser");
-        }
-        sc.nextLine();
+        int idLivre = genererIdLivre();
 
         System.out.print("Titre: ");
         String titre = sc.nextLine();
 
         System.out.print("Auteur: ");
-        String nom = sc.nextLine();
+        String auteur = sc.nextLine();
 
         int annee;
         int anneeActuelle = java.time.Year.now().getValue();
@@ -85,7 +84,17 @@ public class BibliothequeService{
             System.out.println("Code isbn non disponible, car deja affecte");
         }
         
-        Livre livre = new Livre(idLivre, titre, nom, annee, quantite, true, isbn);
+        categorieService.afficherCategories();
+        int idCategorie;
+        while (true) {
+            System.out.print("ID de la categorie : ");
+            idCategorie = sc.nextInt();
+            sc.nextLine();
+            if (categorieService.rechercherParId(idCategorie) != null) break;
+            System.out.println("Categorie introuvable, choisissez un ID valide.");
+        }
+
+        Livre livre = new Livre(idLivre, titre, auteur, annee, quantite, disponibilite, isbn, idCategorie);
         livres.add(livre);
         System.out.println("Livre ajoute avec succes. ");
     }
@@ -93,60 +102,65 @@ public class BibliothequeService{
     //modifier un livre
     public void modifierLivre(int idLivre) {
         Livre livre = rechercherParId(idLivre);
-
         if (livre == null) {
             System.out.println("Aucun livre trouve avec cet identifiant.");
             return;
         }
-
         sc.nextLine();
 
         System.out.print("Titre (" + livre.getTitre() + ") : ");
-        livre.setTitre(sc.nextLine());
+        String titre = sc.nextLine();
+        if (!titre.isEmpty()) livre.setTitre(titre);
 
         System.out.print("Auteur (" + livre.getAuteur() + ") : ");
-        livre.setAuteur(sc.nextLine());
+        String auteur = sc.nextLine();
+        if (!auteur.isEmpty()) livre.setAuteur(auteur);
 
-        int anneee;
+        int annee;
         int anneeActuelle = java.time.Year.now().getValue();
-
         do {
-            System.out.print("Année (ancienne : " + livre.getAnnee() + ") : ");
-            anneee = sc.nextInt();
-
-            if (anneee <= 0 || anneee > anneeActuelle) {
-                System.out.println("Annee invalide. Elle doit etre comprise entre 1 et " + anneeActuelle + ".");
-            }
-        } while (anneee <= 0 || anneee > anneeActuelle);
-
-        livre.setAnnee(anneee);
+            System.out.print("Annee (" + livre.getAnnee() + ") : ");
+            annee = sc.nextInt();
+            if (annee <= 0 || annee > anneeActuelle)
+                System.out.println("Annee invalide.");
+        } while (annee <= 0 || annee > anneeActuelle);
+        livre.setAnnee(annee);
 
         int quantite;
         do {
             System.out.print("Quantite (" + livre.getQuantite() + ") : ");
             quantite = sc.nextInt();
-
-            if (quantite < 0) {
+            if (quantite < 0)
                 System.out.println("Quantite invalide.");
-            }
         } while (quantite < 0);
-
         livre.setQuantite(quantite);
         livre.setDisponibilite(quantite > 0);
-
         sc.nextLine();
 
         while (true) {
             System.out.print("ISBN (" + livre.getIsbn() + ") : ");
             String nouvelIsbn = sc.nextLine();
-
-            if (nouvelIsbn.equalsIgnoreCase(livre.getIsbn())
+            if (nouvelIsbn.isEmpty()
+                    || nouvelIsbn.equalsIgnoreCase(livre.getIsbn())
                     || !isbnExiste(nouvelIsbn)) {
-                livre.setIsbn(nouvelIsbn);
+                if (!nouvelIsbn.isEmpty()) livre.setIsbn(nouvelIsbn);
                 break;
             }
-
             System.out.println("ISBN deja utilise.");
+        }
+
+        System.out.println("Categorie actuelle : "
+            + categorieService.getNomCategorie(livre.getIdCategorie()));
+        categorieService.afficherCategories();
+        System.out.print("Nouvel ID categorie (Entree pour garder) : ");
+        String ligneId = sc.nextLine();
+        if (!ligneId.isEmpty()) {
+            int nouvelId = Integer.parseInt(ligneId);
+            if (categorieService.rechercherParId(nouvelId) != null) {
+                livre.setIdCategorie(nouvelId);
+            } else {
+                System.out.println("Categorie introuvable, categorie inchangee.");
+            }
         }
 
         System.out.println("Livre modifie avec succes.");
@@ -240,5 +254,13 @@ public class BibliothequeService{
         }
         return null;
     }
-
+    
+    // Generation idLivre
+    private int genererIdLivre() {
+        int max = 0;
+        for (Livre l : livres) {
+            if (l.getIdLivre() > max) max = l.getIdLivre();
+        }
+        return max + 1;
+    }
 }
