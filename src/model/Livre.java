@@ -3,10 +3,10 @@ javac -d bin src\model\*.java src\service\*.java
 java -cp bin model.Livre */
 package model;
 
-import service.BibliothequeService;
+/*import service.BibliothequeService;
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.List;*/
 
 public class Livre {
     private int idLivre;
@@ -61,5 +61,22 @@ public class Livre {
              + ", disponible=" + disponibilite
              + ", isbn='" + isbn + '\''
              + ", idCategorie=" + idCategorie + '}';
+    }
+
+    //emprunter un livre
+    public void emprunter(){
+        if(quantite > 0){
+            quantite--;
+            disponibilite = quantite > 0;
+        }
+        else{
+            System.out.println("Livre non disponible pour emprunt");
+        }
+    } 
+
+    //retourner un livre
+    public void retourner(){
+        quantite++;
+        disponibilite = true;
     }
 }

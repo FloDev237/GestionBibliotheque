@@ -44,7 +44,7 @@ public class Membre {
         return livresEmpruntes;
     }
     public void emprunterLivre(Livre livre){
-        if (livre.isDisponible()) {
+        if (livre.getDisponibilite()) {
             livre.emprunter();
             livresEmpruntes.add(livre);
         } else {

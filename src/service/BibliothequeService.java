@@ -75,7 +75,6 @@ public class BibliothequeService{
         sc.nextLine();
         String isbn;
         while(true){
-            int m = 0;
             System.out.print("Code ISBN: ");
             isbn = sc.nextLine();
             if (!isbnExiste(isbn)) {
@@ -225,7 +224,7 @@ public class BibliothequeService{
         return resultats;
     }
 
-    //verification existe id
+    /*//verification existe id
     private boolean idExiste(int idLivre) {
         for (Livre livre : livres) {
             if (livre.getIdLivre() == idLivre) {
@@ -233,7 +232,7 @@ public class BibliothequeService{
             }
         }
         return false;
-    }
+    }*/
 
     //verification exixte isbn
     private boolean isbnExiste(String isbn) {
@@ -246,7 +245,7 @@ public class BibliothequeService{
     }
 
     //verification exixte livre
-    private Livre rechercherParId(int idLivre) {
+    public Livre rechercherParId(int idLivre) {
         for (Livre livre : livres) {
             if (livre.getIdLivre() == idLivre) {
                 return livre;
