@@ -1,3 +1,5 @@
+/*javac -d bin src/model/*.java src/service/*.java src/ui/*.java src/Main.java
+ java -cp bin Main*/
 package model;
 
 import java.util.ArrayList;
@@ -39,6 +41,24 @@ public class Membre {
     }
     public String getDateInscription(){
         return dateInscription;
+    }
+    public void setNom(String nom){
+        this.nom = nom;
+    }
+    public void setEmail(String email){
+        this.email = email;
+    }
+    public void setAdresse(String adresse){
+        this.adresse = adresse;
+    }
+    public void setTel(int tel){
+        this.tel = tel;
+    }
+    public void setDateInscription(String dateInscription){
+        this.dateInscription = dateInscription;
+    }
+    public void setLivresEmpruntes(List<Livre> livresEmpruntes){
+        this.livresEmpruntes = livresEmpruntes;
     }
     public List<Livre> getLivresEmpruntes(){
         return livresEmpruntes;

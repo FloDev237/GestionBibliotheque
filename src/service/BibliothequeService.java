@@ -7,17 +7,23 @@ import java.util.List;
 
 public class BibliothequeService{
 
-    Scanner sc = new Scanner(System.in);
+    private Scanner sc;
     private List<Livre> livres = new ArrayList<>();
     private CategorieService categorieService;
 
     // Constructeur
-    public BibliothequeService(CategorieService categorieService) {
+    public BibliothequeService(CategorieService categorieService, Scanner sc) {
         this.categorieService = categorieService;
+        this.sc = sc;
     }
 
     //getters 
     public List<Livre> getLivres() { return livres; }
+
+    // Méthode pour initialisation directe (sans Scanner)
+    public void ajouterLivreDirecte(Livre livre) {
+        livres.add(livre);
+    }
 
     //afficher tout les livres
     public void afficherTousLesLivres() {
@@ -32,7 +38,7 @@ public class BibliothequeService{
             System.out.println("Titre      : " + l.getTitre());
             System.out.println("Auteur     : " + l.getAuteur());
             System.out.println("Année      : " + l.getAnnee());
-            System.out.println("Quantite: " + l.getQuantite());
+            System.out.println("Quantite   : " + l.getQuantite());
             System.out.println("Disponible : " + (l.getDisponibilite() ? "Oui" : "Non"));
             System.out.println("ISBN       : " + l.getIsbn());
             System.out.println("Categorie  : " + categorieService.getNomCategorie(l.getIdCategorie()));

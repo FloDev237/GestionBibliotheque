@@ -14,9 +14,14 @@ public class CategorieService {
     private Scanner scanner;
 
     //constructeur
-    public CategorieService() {
+    public CategorieService(Scanner scanner) {
         this.categories = new ArrayList<>();
-        this.scanner = new Scanner(System.in);
+        this.scanner = scanner;
+    }
+
+    // Méthode pour initialisation directe (sans Scanner)
+    public void ajouterCategorieDirecte(int id, String nom, String description) {
+        categories.add(new Categorie(id, nom, description));    
     }
 
     // determiner le nom d'une categorie en fonction de l'idCategorie dans Livre

@@ -17,6 +17,12 @@ public class GestionMembre {
         this.prochainId = 1;
     }
     
+    // Méthode pour initialisation directe (sans Scanner)
+    public void inscrireMembreDirecte(Membre membre) {
+        membres.add(membre);
+        prochainId = membre.getIdMembre() + 1;
+    }
+
     /**
      * Inscrire un nouveau membre
      */
@@ -82,24 +88,33 @@ public class GestionMembre {
      */
     public boolean modifierMembre(int idMembre, String nom, String email, String adresse, int telephone) {
         Membre membre = chercherMembreParId(idMembre);
-        
+    
         if (membre == null) {
             System.out.println(" Erreur: Membre non trouvé!");
             return false;
         }
-        
+    
         // Vérifier si le nouvel email n'est pas déjà utilisé par un autre membre
         Membre membreExistant = chercherMembreParEmail(email);
         if (membreExistant != null && membreExistant.getIdMembre() != idMembre) {
             System.out.println(" Erreur: Cet email est déjà utilisé par un autre membre!");
             return false;
         }
-        
+    
         // Mettre à jour les informations
         if (nom != null && !nom.trim().isEmpty()) {
-            membre.getNom(); // Note: Il faut ajouter un setter setNom() dans Membre
+            membre.setNom(nom);           // ← corrigé
         }
-        
+        if (email != null && !email.trim().isEmpty()) {
+            membre.setEmail(email);       // ← ajouté
+        }
+        if (adresse != null && !adresse.trim().isEmpty()) {
+            membre.setAdresse(adresse);   // ← ajouté
+        }
+        if (validerTelephone(telephone)) {
+            membre.setTel(telephone);     // ← ajouté
+        }
+    
         System.out.println("Membre modifié avec succès!");
         return true;
     }

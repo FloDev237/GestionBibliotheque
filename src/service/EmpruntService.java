@@ -83,7 +83,10 @@ public class EmpruntService {
         emprunts.add(emprunt);
         
         // Emprunter le livre (décrémente la quantité via la méthode de Membre)
-        membre.emprunterLivre(livre);
+        // membre.emprunterLivre(livre);
+        // APRÈS — décrémente 1 fois correctement
+        livre.emprunter();
+        membre.getLivresEmpruntes().add(livre);
         
         System.out.println("\n EMPRUNT EFFECTUÉ AVEC SUCCÈS!");
         System.out.println("┌─────────────────────────────────────────────────┐");
@@ -139,7 +142,10 @@ public class EmpruntService {
         empruntActif.retourner();
         
         // Retourner le livre (via la méthode de Membre)
-        membre.retournerLivre(livre);
+        // membre.retournerLivre(livre);
+        // APRÈS
+        livre.retourner();
+        membre.getLivresEmpruntes().remove(livre);
         
         // Afficher le résultat
         System.out.println("\n RETOUR EFFECTUÉ AVEC SUCCÈS!");
@@ -469,4 +475,15 @@ public class EmpruntService {
         if (texte.length() <= longueur) return texte;
         return texte.substring(0, longueur - 3) + "...";
     }
+
+    // À ajouter dans EmpruntService.java
+    public void ajouterEmpruntDirecte(int livreId, int membreId) {
+        Emprunt emprunt = new Emprunt(prochainId++, livreId, membreId);
+        emprunts.add(emprunt);
+        Livre livre = bibliothequeService.rechercherParId(livreId);
+        Membre membre = gestionMembre.chercherMembreParId(membreId);
+        livre.emprunter();
+        membre.getLivresEmpruntes().add(livre);
+    }
+
 }
