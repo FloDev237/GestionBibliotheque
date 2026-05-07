@@ -1,3 +1,4 @@
+
 package model;
 
 public class Categorie {
@@ -20,9 +21,15 @@ public class Categorie {
     }
 
     // Getters
-    public int getIdCategorie() { return idCategorie; }
-    public String getNom() { return nom; }
-    public String getDescription() { return description; }
+    public int getIdCategorie() { 
+        return idCategorie; 
+    }
+    public String getNom() { 
+        return nom; 
+    }
+    public String getDescription() { 
+        return description; 
+    }
 
     // Setters
     public void setIdCategorie(int idCategorie) { this.idCategorie = idCategorie; }
